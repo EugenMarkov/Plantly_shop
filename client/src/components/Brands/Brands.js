@@ -9,7 +9,6 @@ import useStyles from "./useStyles";
 const Brands = () => {
   const classes = useStyles();
   const [brands, setBrands] = useState([]);
-  // eslint-disable-next-line
   const [preloader, setPreloader] = useState(true);
 
   useEffect(() => {
@@ -20,14 +19,13 @@ const Brands = () => {
         setPreloader(false);
       })
       .catch(err => {
-        // eslint-disable-next-line
         console.log(err);
       });
   }, []);
 
   return (
     <Container className={classes.brandsContaier} maxWidth="xl">
-      {brands.length === 0 ? (
+      {preloader && brands.length === 0 ? (
         <PreloaderAdaptive />
       ) : (
         brands.map(brand => (

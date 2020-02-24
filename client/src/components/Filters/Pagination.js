@@ -12,7 +12,6 @@ const useStyles = makeStyles(theme => ({
     listStyle: "none",
     display: "flex",
     justifyContent: "center",
-    // width: "15%",
     padding: 0,
     margin: "20px 30%",
     [theme.breakpoints.down("sm")]: {
@@ -85,11 +84,9 @@ const Pagination = ({ productsPerPage, totalProducts, paginate, filters }) => {
             onClick={() => {
               paginate(number);
               setSelectedIndex(index);
-              // setPageIndex(index);
             }}
             selected={selectedIndex === index}
           >
-            {/* eslint-disable-next-line */}
             <a className={classes.itemLink} href="#">
               {number}
             </a>
