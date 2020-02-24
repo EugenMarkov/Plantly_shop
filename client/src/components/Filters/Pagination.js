@@ -26,8 +26,10 @@ const useStyles = makeStyles(theme => ({
     },
   },
   tableItem: {
+    border: "none",
+    height: 29,
+    width: 29,
     margin: "5px",
-    padding: "5px 12px",
     cursor: "pointer",
     backgroundColor: theme.palette.primary.main,
     borderRadius: "50%",
@@ -35,24 +37,21 @@ const useStyles = makeStyles(theme => ({
     "&:hover": {
       backgroundColor: "#33691e",
     },
-    "& a": {
-      textDecoration: "none",
-      fontWeight: 500,
-      color: "white",
-    },
   },
   tableItemActive: {
+    border: "none",
+    height: 29,
+    width: 29,
     margin: "5px",
-    padding: "5px 12px",
     cursor: "pointer",
     backgroundColor: theme.palette.primary.dark,
     borderRadius: "50%",
     transition: "0.5s ease",
-    "& a": {
-      textDecoration: "none",
-      fontWeight: 500,
-      color: "white",
-    },
+  },
+  itemLink: {
+    textDecoration: "none",
+    fontWeight: 500,
+    color: "white",
   },
 }));
 
@@ -73,7 +72,7 @@ const Pagination = ({ productsPerPage, totalProducts, paginate, filters }) => {
     <nav className={classes.wrapper}>
       <ul className={classes.table}>
         {pageNumbers.map((number, index) => (
-          <li
+          <button
             className={
               selectedIndex === index
                 ? classes.tableItemActive
@@ -87,10 +86,10 @@ const Pagination = ({ productsPerPage, totalProducts, paginate, filters }) => {
             }}
             selected={selectedIndex === index}
           >
-            <a className={classes.itemLink} href="#">
+            <div className={classes.itemLink}>
               {number}
-            </a>
-          </li>
+            </div>
+          </button>
         ))}
       </ul>
     </nav>
