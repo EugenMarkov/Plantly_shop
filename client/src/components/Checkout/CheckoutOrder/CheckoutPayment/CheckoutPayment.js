@@ -4,7 +4,7 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 import withStyles from "@material-ui/core/styles/withStyles";
 import { Box, Typography } from "@material-ui/core";
-import {TextValidator} from "react-material-ui-form-validator";
+import { TextValidator } from "react-material-ui-form-validator";
 import useStyles from "./useStyles";
 import theme from "../../../../theme";
 import AmericanExpress from "./pics/AmericanExpress.png";
@@ -14,7 +14,7 @@ import Visa from "./pics/visa.png";
 
 const GreenCheckbox = withStyles({
   root: {
-    color:theme.palette.primary.main,
+    color: theme.palette.primary.main,
     "&$checked": {
       color: theme.palette.primary.main,
     },
@@ -22,12 +22,9 @@ const GreenCheckbox = withStyles({
   checked: {},
 })(props => <Checkbox color="default" {...props} />);
 
-
 const CheckoutPayments = () => {
-  const [state, setState] = useState({
-    cash: true,
-    card: false,
-  });
+  const classes = useStyles();
+  const [ paymentMethod, setPaymentMethod] = useState("cash");
   const [cardData, setCardData] = useState({
     cardNumber1: "",
     cardNumber2: "",
@@ -38,33 +35,28 @@ const CheckoutPayments = () => {
     CV: "",
   });
 
-  const handleChange = event => {
-    if(event.target.value === "cash" ) {
-      setState({ ...state, [event.target.value]: event.target.checked, card: !event.target.checked});
-    } else {
-      setState({ ...state, [event.target.value]: event.target.checked, cash: !event.target.checked});
-    }
+  const handleChangePaymentMethod = event => {
+    setPaymentMethod(event.target.name);
   };
   const handleInputsChange = event => {
     if (!isNaN(event.target.value)) {
-      setCardData({ ...cardData, [event.target.name]: event.target.value});
+      setCardData({ ...cardData, [event.target.name]: event.target.value });
     }
   };
 
-  const classes = useStyles();
 
   return (
     <div className={classes.paymentWrapper}>
       <FormGroup row className={classes.checkboxForm}>
-        <Typography className={classes.paymentText}>Choose payment : </Typography>
+        <Typography className={classes.paymentText}>Choose payment method: </Typography>
         <div>
           <FormControlLabel
             className={classes.checkboxLabel}
             control={(
               <GreenCheckbox
-                checked={state.cash}
-                onChange={e => handleChange(e)}
-                value="cash"
+                checked={paymentMethod === "cash"}
+                onChange={e => handleChangePaymentMethod(e)}
+                name="cash"
               />
             )}
             label="Cash"
@@ -73,10 +65,9 @@ const CheckoutPayments = () => {
             className={classes.checkboxLabel}
             control={(
               <GreenCheckbox
-                checked={state.card}
-                onChange={e => handleChange(e)}
-                value="card"
-                className={classes.checkbox}
+                checked={paymentMethod === "card"}
+                onChange={e => handleChangePaymentMethod(e)}
+                name="card"
               />
             )}
             label="Card"
@@ -84,12 +75,16 @@ const CheckoutPayments = () => {
         </div>
       </FormGroup>
       <>
-        {state.card && (
+        { paymentMethod === "card" && (
           <div className={classes.creditCardConteiner}>
             <div>
               <div className={classes.creditCard}>
                 <Box className={classes.paymentMethods}>
-                  <img className={classes.paymentMethod} src={AmericanExpress} alt="American Express" />
+                  <img
+                    className={classes.paymentMethod}
+                    src={AmericanExpress}
+                    alt="American Express"
+                  />
                   <img className={classes.paymentMethod} src={PayPal} alt="PayPal" />
                   <img className={classes.paymentMethod} src={MasterCard} alt="Master Card" />
                   <img className={classes.paymentMethod} src={Visa} alt="Visa" />
@@ -108,7 +103,10 @@ const CheckoutPayments = () => {
                         className: classes.creditCardInput,
                         maxLength: 4,
                       }}
-                      validators={["required", "matchRegexp:^3[47][0-9]{2}|4[0-9]{3}|5[1-5][0-9]{2}$"]}
+                      validators={[
+                        "required",
+                        "matchRegexp:^3[47][0-9]{2}|4[0-9]{3}|5[1-5][0-9]{2}$",
+                      ]}
                       errorMessages={[]}
                     />
                     <TextValidator
@@ -156,7 +154,9 @@ const CheckoutPayments = () => {
                   </div>
                   <Typography className={classes.creditCardTitle}>
                     VALID THRU
-                    <Typography component="span" className={classes.creditCardTitleCV}>CVC2 / CVV2</Typography>
+                    <Typography component="span" className={classes.creditCardTitleCV}>
+                      CVC2 / CVV2
+                    </Typography>
                   </Typography>
                   <div className={classes.creditCardDataGroup}>
                     <div className={classes.creditCardDataGroupBox}>
@@ -174,7 +174,9 @@ const CheckoutPayments = () => {
                         validators={["required", "matchRegexp:^0[1-9]$|^1[0-2]$"]}
                         errorMessages={[]}
                       />
-                      <Typography component="span" className={classes.creditCardSpan}>/</Typography>
+                      <Typography component="span" className={classes.creditCardSpan}>
+                        /
+                      </Typography>
                       <TextValidator
                         value={cardData.year}
                         name="year"
@@ -201,7 +203,7 @@ const CheckoutPayments = () => {
                         className: classes.creditCardCVInput,
                         maxLength: 3,
                         type: "password",
-                        autoComplete: "password"
+                        autoComplete: "password",
                       }}
                       validators={["required", "matchRegexp:^[0-9]{3}$"]}
                       errorMessages={[]}
@@ -225,7 +227,7 @@ const CheckoutPayments = () => {
                       className: classes.creditCardCVInput,
                       maxLength: 3,
                       type: "password",
-                      autoComplete: "password"
+                      autoComplete: "password",
                     }}
                     validators={["required", "matchRegexp:^[0-9]{3}$"]}
                     errorMessages={[]}
