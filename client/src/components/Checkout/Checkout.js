@@ -93,7 +93,7 @@ const Checkout = ({ userData, isAuthenticated, cartProducts }) => {
   };
 
   return link ? (
-    <Redirect to={`/orders/${link}`}/>
+    <Redirect to={`/orders/${link}`} />
   ) : (
     <Container className={classes.checkoutContainer} maxWidth="lg">
       <Typography variant="h3">Checkout</Typography>
@@ -109,10 +109,10 @@ const Checkout = ({ userData, isAuthenticated, cartProducts }) => {
               />
             </Grid>
             <Grid item xs={12} md={6}>
-              <CheckoutCart/>
+              <CheckoutCart />
             </Grid>
             {isLoading ? (
-              <PreloaderAdaptiveSmall/>
+              <PreloaderAdaptiveSmall />
             ) : (
               <Button className={classes.submitBtn} type="submit">
                 place order
