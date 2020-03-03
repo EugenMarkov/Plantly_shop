@@ -23,7 +23,7 @@ import {
 } from "../store/actions/loginActions";
 import {getWishlist} from "../store/actions/wishlist";
 import SearchPage from "../pages/SearchPage/SearchPage";
-// const Shop = React.lazy(() => import('../pages/Shop/Shop')); // Lazy-loaded
+
 import Shop from "../pages/Shop/Shop";
 import Contact from "../pages/Contact/Contact";
 import {AdminHOC} from '../components/common/hoc/AdminHOC';
