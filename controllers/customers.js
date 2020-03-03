@@ -3,16 +3,20 @@ const jwt = require("jsonwebtoken");
 const _ = require("lodash");
 const keys = require("../config/keys");
 const getConfigs = require("../config/getConfigs");
+const passport = require("passport");
 const uniqueRandom = require("unique-random");
 const rand = uniqueRandom(10000000, 99999999);
 
+// Load Customer model
 const Customer = require("../models/Customer");
 
+// Load validation helper to validate all received fields
 const validateRegistrationForm = require("../validation/validationHelper");
 
+// Load helper for creating correct query to save customer to DB
 const queryCreator = require("../commonHelpers/queryCreator");
 
-
+//getCustomers
 exports.getCustomers = (req, res, next) => {
   Customer.find({$or:[{}]})
     .then(customers => {
@@ -29,12 +33,14 @@ exports.getCustomers = (req, res, next) => {
     );
 };
 
-
+// Create one customer
+// Controller for creating customer and saving to DB
   exports.createCustomer = (req, res, next) => {
-
+  // Clone query object, because validator module mutates req.body, adding other fields to object
   const initialQuery = _.cloneDeep(req.body);
   initialQuery.customerNo = rand();
 
+  // Check Validation
   const { errors, isValid } = validateRegistrationForm(req.body);
 
   if (!isValid) {
@@ -59,7 +65,7 @@ exports.getCustomers = (req, res, next) => {
         }
       }
 
-
+      // Create query object for qustomer for saving him to DB
       const newCustomer = new Customer(queryCreator(initialQuery));
 
       bcrypt.genSalt(10, (err, salt) => {
@@ -93,9 +99,11 @@ exports.getCustomers = (req, res, next) => {
 
 
 
+// Controller for customer login
 exports.loginCustomer = async (req, res, next) => {
   const { errors, isValid } = validateRegistrationForm(req.body);
 
+  // Check Validation
   if (!isValid) {
     return res.status(400).json(errors);
   }
@@ -104,10 +112,12 @@ exports.loginCustomer = async (req, res, next) => {
   const password = req.body.password;
   const configs = await getConfigs();
 
+  // Find customer by email
   Customer.findOne({
     $or: [{ email: loginOrEmail }, { login: loginOrEmail }]
   })
     .then(customer => {
+      // Check for customer
       if (!customer) {
         errors.loginOrEmail = "Customer not found";
         return res.status(404).json(errors);
@@ -118,15 +128,18 @@ exports.loginCustomer = async (req, res, next) => {
         return res.status(404).json(errors);
       }
 
+      // Check Password
       bcrypt.compare(password, customer.password).then(isMatch => {
         if (isMatch) {
+          // Customer Matched
           const payload = {
             id: customer.id,
             firstName: customer.firstName,
             lastName: customer.lastName,
             isAdmin: customer.isAdmin
-          };
+          }; // Create JWT Payload
 
+          // Sign Token
           jwt.sign(
             payload,
             keys.secretOrKey,
@@ -151,14 +164,17 @@ exports.loginCustomer = async (req, res, next) => {
     );
 };
 
+// Controller for getting current customer
 exports.getCustomer = (req, res) => {
   res.json(req.user);
 };
 
+// Controller for editing customer personal info
 exports.editCustomerInfo = (req, res) => {
-
+  // Clone query object, because validator module mutates req.body, adding other fields to object
   const initialQuery = _.cloneDeep(req.body);
 
+  // Check Validation
   const { errors, isValid } = validateRegistrationForm(req.body);
 
   if (!isValid) {
@@ -205,6 +221,7 @@ exports.editCustomerInfo = (req, res) => {
         }
       }
 
+      // Create query object for qustomer for saving him to DB
       const updatedCustomer = queryCreator(initialQuery);
 
       Customer.findOneAndUpdate(
@@ -226,15 +243,16 @@ exports.editCustomerInfo = (req, res) => {
     );
 };
 
-
+// Controller for editing customer password
 exports.updatePassword = (req, res) => {
-
+  // Check Validation
   const { errors, isValid } = validateRegistrationForm(req.body);
 
   if (!isValid) {
     return res.status(400).json(errors);
   }
 
+  // find our user by ID
   Customer.findOne({ _id: req.user.id }, (err, customer) => {
     let oldPassword = req.body.password;
 

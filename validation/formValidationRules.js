@@ -1,6 +1,7 @@
 const FormValidator = require("./FormValidator");
 const moment = require("moment");
 
+// Rules for all form fields for validation
 const formValidationRules = [
   {
     field: "firstName",
@@ -121,6 +122,13 @@ const formValidationRules = [
     message: "Password must be between 7 and 30 characters"
   },
   {
+    field: "telephone",
+    method: "matches",
+    args: [/^3?8?[0-9-+\s()]{10,18}$/],
+    validWhen: true,
+    message: "That is not a valid phone number."
+  },
+  {
     field: "isAdmin",
     method: "isBoolean",
     validWhen: true,
@@ -132,6 +140,20 @@ const formValidationRules = [
     validWhen: true,
     message: "isAdmin field must be true or false"
   },
+  {
+    field: "letterSubject",
+    method: FormValidator.isEmpty,
+    validWhen: false,
+    message:
+      "This operation involves sending a letter to the client. Please provide field 'letterSubject' for the letter."
+  },
+  {
+    field: "letterHtml",
+    method: FormValidator.isEmpty,
+    validWhen: false,
+    message:
+      "This operation involves sending a letter to the client. Please provide field 'letterHtml' for the letter."
+  }
 ];
 
 module.exports = formValidationRules;

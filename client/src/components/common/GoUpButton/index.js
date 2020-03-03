@@ -15,6 +15,7 @@ const ScrollTop = props => {
   });
 
   const handleClick = event => {
+    // eslint-disable-next-line
     const anchor = (event.target.ownerDocument || document).querySelector(
       "#back-to-top-anchor"
     );
@@ -35,6 +36,7 @@ const ScrollTop = props => {
 const BackToTop = props => {
   return (
     <div id="back-to-top-anchor">
+      {/* eslint-disable-next-line react/jsx-props-no-spreading */}
       <ScrollTop {...props}>
         <Fab color="secondary" size="small" aria-label="scroll back to top">
           <KeyboardArrowUpIcon />

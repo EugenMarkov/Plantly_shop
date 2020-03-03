@@ -1,5 +1,5 @@
 import { createMuiTheme } from '@material-ui/core/styles';
-import { indigo, grey } from '@material-ui/core/colors';
+import { lightGreen, grey } from '@material-ui/core/colors';
 
 const theme = createMuiTheme({
 
@@ -20,9 +20,9 @@ const theme = createMuiTheme({
   },
   palette: {
     primary: {
-      main: indigo[700], // main theme color
-      light: indigo[100], // footer bg
-      dark: indigo[900], // hover btn
+      main: lightGreen[700], // main theme color
+      light: lightGreen[100], // footer bg
+      dark: lightGreen[900], // hover btn
     },
     secondary: {
       main: grey[700], // main grey
@@ -37,6 +37,7 @@ const theme = createMuiTheme({
     h3: {
       fontSize: 22,
       fontWeight: 700,
+      marginBottom: 30,
       textTransform: "uppercase",
       color: grey[800]
     },
@@ -66,25 +67,25 @@ const theme = createMuiTheme({
     MuiTooltip: {
       tooltip: {
         fontSize: "13px",
-        backgroundColor: indigo[700],
+        backgroundColor: lightGreen[700],
       },
       arrow: {
-        color: indigo[700],
+        color: lightGreen[700],
       },
     },
     MuiIconButton: {
       root: {
         "&:hover": {
-          backgroundColor: indigo[100],
+          backgroundColor: lightGreen[100],
         },
       },
     },
 
     MuiFab: {
       secondary: {
-        backgroundColor: indigo[700],
+        backgroundColor: lightGreen[700],
         "&:hover": {
-          backgroundColor: indigo[900],
+          backgroundColor: lightGreen[900],
         },
       },
     },
@@ -97,22 +98,22 @@ const theme = createMuiTheme({
       text: {
         color: grey[700],
         "&:hover": {
-          color: indigo[900],
-          backgroundColor: indigo[100],
+          color: lightGreen[900],
+          backgroundColor: lightGreen[100],
         },
       },
       contained: {
         color: "white",
-        backgroundColor: indigo[700],
+        backgroundColor: lightGreen[700],
         "&:hover": {
-          backgroundColor: indigo[900],
+          backgroundColor: lightGreen[900],
         },
       },
       outlined: {
-        color: indigo[700],
+        color: lightGreen[700],
         "&:hover": {
-          color: indigo[900],
-          backgroundColor: indigo[100]
+          color: lightGreen[900],
+          backgroundColor: lightGreen[100]
         },
       },
     },

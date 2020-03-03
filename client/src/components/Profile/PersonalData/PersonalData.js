@@ -18,6 +18,7 @@ function PersonalData({
     firstName: user.firstName,
     lastName: user.lastName,
     email: user.email,
+    telephone: user.telephone,
   });
 
   const matches = useMediaQuery(theme => theme.breakpoints.down("xs"));
@@ -102,6 +103,23 @@ function PersonalData({
             onChange={handleChange}
             validators={["required", "isEmail"]}
             errorMessages={["this field is required", "email is not valid"]}
+          />
+          <TextValidator
+            id="customer-phone-input"
+            disabled={!isEditable}
+            label="Phone Number"
+            InputLabelProps={{ className: classes.input }}
+            type="tel"
+            value={userData.telephone}
+            size={matches ? "small" : null}
+            variant={isEditable ? "outlined" : "standard"}
+            inputProps={{
+              name: "telephone",
+              type: "tel",
+            }}
+            onChange={handleChange}
+            validators={["matchRegexp:^3?8?[0-9-+\\s()]{10,18}$"]}
+            errorMessages={["phone is not valid, need minimum 10 figures, country code is preferable",]}
           />
           {isEditable ? (
             <Button className={classes.btn} type="submit">
