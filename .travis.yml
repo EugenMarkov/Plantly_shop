@@ -12,14 +12,4 @@ cache:
 
 before_script:
   - npm install
-# script:
-# - npm --cwd ./client npm run format
 
-# linter:
-#    - npm --cwd ./client npm run lint
-# deploy:
-#   provider: heroku
-#   api_key:
-#     secure: 02fd9fe8-39cd-481e-abf9-09fd627f4ae1
-#   app: final-project-online-store
-#   on:

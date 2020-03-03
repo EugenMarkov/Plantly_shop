@@ -1,23 +1,16 @@
 import React from "react";
 
-import useStyle from "./useStyle";
+import CircularProgress from "@material-ui/core/CircularProgress";
+import useStyles from "./useStyles";
 
 const PreloaderAdaptiveSmall = () => {
-  const classes = useStyle();
+  const classes = useStyles();
 
   return (
     <div className={classes.wrapper}>
-      <i className={classes.adaptive}>
-        <i className={classes.adaptive}>
-          <i className={classes.adaptive}>
-            <i className={classes.adaptive}>
-              <i className={classes.adaptive}>
-                <i />
-              </i>
-            </i>
-          </i>
-        </i>
-      </i>
+      <div className={classes.root}>
+        <CircularProgress />
+      </div>
     </div>
   );
 };

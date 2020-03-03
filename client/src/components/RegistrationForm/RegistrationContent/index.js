@@ -106,24 +106,6 @@ const RegistrationContent = ({
               "Your password must be 8-16 characters, including only latin letters and numbers",
             ]}
           />
-          <TextValidator
-            label="Telephone"
-            variant="outlined"
-            name="telephone"
-            value={newUserData.telephone}
-            onChange={handleChange}
-            className={classes.textField}
-            validators={["matchRegexp:^3?8?[0-9-+\\s()]{10,18}$"]}
-            errorMessages={["phone is not valid, need minimum 10 figures, country code is preferable",]}
-          />
-          <TextValidator
-            label="Address"
-            variant="outlined"
-            name="address"
-            value={newUserData.address}
-            onChange={handleChange}
-            className={classes.textField}
-          />
           <Button type="submit" variant="outlined" className={classes.btn}>
             Registration
           </Button>

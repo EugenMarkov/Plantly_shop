@@ -7,9 +7,21 @@ const useStyles = makeStyles(theme => ({
   },
   logo: {
     height: "40px",
-    display: "none",
-    [theme.breakpoints.up("md")]: {
+    display: "flex",
+    [theme.breakpoints.up("xs")]: {
       display: "flex",
+    },
+  },
+  logo_wrapper : {
+    width: 200,
+    [theme.breakpoints.down("sm")]: {
+      width: 100,
+    },
+  },
+  title: {
+    display: "block",
+    [theme.breakpoints.down("sm")]: {
+      display: "none",
     },
   },
   link: {
@@ -18,11 +30,10 @@ const useStyles = makeStyles(theme => ({
       color: "theme. primary.dark",
     },
   },
-  searchDesktop: {
-    display: "none",
-    [theme.breakpoints.up("sm")]: {
-      display: "flex",
-    },
+  layer: {
+    display: "flex",
+    marginTop: 65,
+    justifyContent: "center"
   },
 }));
 export default useStyles;

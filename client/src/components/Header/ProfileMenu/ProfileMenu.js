@@ -14,10 +14,10 @@ import useStyles from "./useStyles"
 
 import setAuthToken from "../../common/setAuthToken";
 import {logOut} from "../../../store/actions/loginActions";
-import {wishlistLogOut} from "../../../store/actions/wishlist";
-import {clearCart} from "../../../store/actions/сart";
+import { recipesLogOut } from "../../../store/actions/recipes";
 
-const ProfileMenu = ( {isAdmin, logOff, wishlistLogOff, clearPersonalCart } ) => {
+
+const ProfileMenu = ( { logOff, recipesLogOff} ) => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
   const anchorRef = useRef(null);
@@ -41,9 +41,8 @@ const ProfileMenu = ( {isAdmin, logOff, wishlistLogOff, clearPersonalCart } ) =>
   }
   const profileLogOut = () => {
     setAuthToken(false);
-    wishlistLogOff();
+    recipesLogOff();
     logOff();
-    clearPersonalCart();
   };
 
   return (
@@ -66,14 +65,12 @@ const ProfileMenu = ( {isAdmin, logOff, wishlistLogOff, clearPersonalCart } ) =>
             <Paper>
               <ClickAwayListener onClickAway={handleClose}>
                 <MenuList className={classes.list} autoFocusItem={open} id="menu-list-grow" onKeyDown={handleListKeyDown}>
+                  <Link to="/" className={classes.text}>
+                    <MenuItem onClick={handleClose}>Home</MenuItem>
+                  </Link>
                   <Link to="/profile" className={classes.text}>
                     <MenuItem onClick={handleClose}>Profile</MenuItem>
                   </Link>
-                  {isAdmin && (
-                  <Link to="/admin" className={classes.text}>
-                    <MenuItem onClick={handleClose}>Admin Panel</MenuItem>
-                  </Link>
-                  )}
                   <MenuItem className={classes.text} onClick={profileLogOut}>Logout</MenuItem>
                 </MenuList>
               </ClickAwayListener>
@@ -85,14 +82,7 @@ const ProfileMenu = ( {isAdmin, logOff, wishlistLogOff, clearPersonalCart } ) =>
   );
 };
 
-function mapStateToProps(state) {
-  return {
-    isAdmin: state.loginReducer.user.isAdmin,
-  };
-}
-
-export default connect(mapStateToProps, {
+export default connect( null, {
   logOff: logOut,
-  wishlistLogOff: wishlistLogOut,
-  clearPersonalCart: clearCart,
+  recipesLogOff: recipesLogOut,
 })(ProfileMenu);

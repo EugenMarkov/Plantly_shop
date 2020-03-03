@@ -2,8 +2,7 @@ import axios from "axios";
 import jwt from "jwt-decode";
 import * as constants from "../constants";
 import setAuthToken from "../../components/common/setAuthToken";
-import { mergeCarts } from "./сart";
-import { getWishlist } from "./wishlist";
+import { getRecipes } from "./recipes";
 
 const logInSuccess = data => {
   return {
@@ -70,9 +69,8 @@ export const logIn = user => dispatch => {
         dispatch(userFromJwt(jwt(response.data.token)));
       }
       dispatch(modalClose());
-      dispatch(getWishlist());
+      dispatch(getRecipes());
       dispatch(getUser());
-      dispatch(mergeCarts());
     })
     .catch(error => {
       dispatch(logInFailure(error));

@@ -15,8 +15,8 @@ const useStyles = makeStyles({
   },
   span: {
     display: "none",
-    width: 250,
-    [theme.breakpoints.up("md")]: {
+    width: 200,
+    [theme.breakpoints.up("sm")]: {
       marginRight: "15px",
       display: "inline-flex",
       justifyContent: "flex-end",
