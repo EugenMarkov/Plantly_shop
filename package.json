@@ -1,7 +1,7 @@
 {
-  "name": "cookbook_backend",
+  "name": "fe-final-backend",
   "version": "1.0.0",
-  "description": "Back End code for cookbook project",
+  "description": "Back End code for final projects of Front End groups\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[DDANIT\u001b[3~ Front End groups",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -12,9 +12,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/EugenMarkov/"
+    "url": "https://gitlab.com/dan-it/js-course-development/fe-final-backend.git"
   },
-  "author": "Eugen Markov",
+  "author": "Saribeg",
   "license": "ISC",
   "dependencies": {
     "axios": "^0.19.0",
@@ -29,8 +29,11 @@
     "moment": "^2.24.0",
     "mongoose": "^5.6.10",
     "multer": "^1.4.2",
+    "nodemailer": "^6.3.0",
     "passport": "^0.4.0",
     "passport-jwt": "^4.0.0",
+    "react-redux": "^7.1.3",
+    "react-responsive-carousel": "^3.1.51",
     "unique-random": "^2.1.0",
     "validator": "^11.1.0"
   },

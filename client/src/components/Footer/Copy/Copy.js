@@ -1,14 +1,15 @@
 import React from "react";
-import { Grid, Typography } from "@material-ui/core";
+import { Grid, Typography, Divider } from "@material-ui/core";
 import useStyles from "./useStyles";
 
 const Copy = () => {
   const classes = useStyles();
 
   return (
-    <Grid item xs={12}>
+    <Grid item xs={12} className={classes.copyHeader}>
+      <Divider variant="middle" />
       <Typography className={classes.textedFooter}>
-        Eugen Markov Inc. © 2020
+        Suhak Brothers Inc. © 2020
       </Typography>
     </Grid>
   );

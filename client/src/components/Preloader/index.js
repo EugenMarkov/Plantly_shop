@@ -1,23 +1,23 @@
 import React from "react";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import PreloaderAdaptive from "./Adaptive";
-import PreloaderAdaptiveSmall from "./AdaptiveSmall";
+import PreloaderDesktop from "./Desktop";
 import useStyles from "./useStyles";
 
 const Preloader = () => {
   const classes = useStyles();
-  const matches = useMediaQuery(theme => theme.breakpoints.up("sm"));
+  const matches = useMediaQuery(theme => theme.breakpoints.up("md"));
 
   return (
     <>
       {matches && (
         <div>
-          <PreloaderAdaptive />
+          <PreloaderDesktop />
         </div>
       )}
       {!matches && (
         <div className={classes.adaptive_preloader}>
-          <PreloaderAdaptiveSmall />
+          <PreloaderAdaptive />
         </div>
       )}
     </>

@@ -1,23 +1,25 @@
-import React, { useCallback, useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
-import axios from "axios";
-import { connect } from "react-redux";
-import RegistrationContent from "./RegistrationContent";
-import { modalOpen } from "../../store/actions/loginActions";
+import React, { useCallback, useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import axios from 'axios';
+import RegistrationContent from './RegistrationContent';
+import { modalOpen } from '../../store/actions/loginActions';
+import { connect } from 'react-redux';
 
 const RegistrationForm = ({ modalOpen }) => {
   const history = useHistory();
   const [userData, setUserData] = useState({
-    firstName: "",
-    lastName: "",
-    login: "",
-    email: "",
-    password: "",
+    firstName: '',
+    lastName: '',
+    login: '',
+    email: '',
+    password: '',
+    telephone: '',
+    address: '',
     isAdmin: false,
   });
   const [showPassword, setShowPassword] = useState(false);
   const [registration, setRegistration] = useState(false);
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState('');
   const [submitRegistration, setSubmitRegistration] = useState(false);
 
   const updateUser = useCallback(() => {
@@ -69,19 +71,20 @@ const RegistrationForm = ({ modalOpen }) => {
     setShowPassword(() => !showPassword);
   };
 
+
   useEffect(() => {
     if (submitRegistration) {
       const user = updateUser();
       axios
-        .post("/api/customers", user)
+        .post('/api/customers', user)
         .then(response => {
-          if (response.statusText === "OK") {
+          if (response.statusText === 'OK') {
             modalOpen();
             setRegistration(true);
           }
         })
         .catch(error => {
-          if (error.statusText === "Not Found" && error.status === 404) {
+          if (error.statusText === 'Not Found' && error.status === 404) {
             setMessage(error.message);
           } else {
             setMessage(handleError(error));
@@ -89,24 +92,24 @@ const RegistrationForm = ({ modalOpen }) => {
           setSubmitRegistration(false);
         });
     }
-  }, [submitRegistration, updateUser, modalOpen]);
+  }, [submitRegistration, updateUser , modalOpen]);
 
   return (
     <>
       {registration ? (
-        history.goBack()
+      history.goBack()
       ) : (
-        <RegistrationContent
-          setSubmitRegistration={setSubmitRegistration}
-          handleChange={handleChange}
-          handleClickShowPassword={handleClickShowPassword}
-          newUserData={userData}
-          showPassword={showPassword}
-          message={message}
-        />
+      <RegistrationContent
+        setSubmitRegistration={setSubmitRegistration}
+        handleChange={handleChange}
+        handleClickShowPassword={handleClickShowPassword}
+        newUserData={userData}
+        showPassword={showPassword}
+        message={message}
+      />
       )}
     </>
   );
 };
 
-export default connect(null, { modalOpen })(RegistrationForm);
+export default connect ( null, { modalOpen })(RegistrationForm);

@@ -4,26 +4,39 @@ import {connect} from "react-redux";
 import jwt from "jwt-decode";
 
 import HomePage from "../pages/HomePage/HomePage";
+import CartPage from "../pages/CartPage/CartPage";
 import ProfilePage from "../pages/ProfilePage/ProfilePage";
+import NotFound from "../pages/NotFound/NotFound";
 import RegistrationPage from "../pages/RegistrationPage/RegistrationPage";
-import {AuthHOC} from '../components/common/hoc/AuthHOC';
+import ItemDetailsPage from "../pages/ItemDetailsPage/ItemDetailsPage";
+import OrderDetailsPage from "../pages/OrderDetailsPage/OrderDetailsPage";
+import CheckoutPage from "../pages/CheckoutPage/CheckoutPage"
+import AdminPage from "../pages/AdminPage/AdminPage";
 import setAuthToken from "../components/common/setAuthToken";
 import isExpired from "../components/common/isExpired/isExpired";
 import Preloader from "../components/Preloader";
-
-import { getUser, logOut, preloaderClose, userFromJwt, } from "../store/actions/loginActions";
-import { getRecipes } from "../store/actions/recipes";
-
+import {
+  getUser,
+  logOut,
+  preloaderClose,
+  userFromJwt,
+} from "../store/actions/loginActions";
+import {getWishlist} from "../store/actions/wishlist";
+import SearchPage from "../pages/SearchPage/SearchPage";
+// const Shop = React.lazy(() => import('../pages/Shop/Shop')); // Lazy-loaded
+import Shop from "../pages/Shop/Shop";
+import Contact from "../pages/Contact/Contact";
+import {AdminHOC} from '../components/common/hoc/AdminHOC';
+import {AuthHOC} from '../components/common/hoc/AuthHOC';
 
 const Routes = ({
                   preloaderClose,
                   preloader,
                   userFromJwt,
                   logOut,
-                  getRecipes,
+                  getWishlist,
                   getUser,
                 }) => {
-
   useEffect(() => {
     const token = localStorage.getItem("authToken");
     if (token) {
@@ -33,7 +46,7 @@ const Routes = ({
         preloaderClose();
         setAuthToken(token);
         getUser();
-        getRecipes();
+        getWishlist();
       } else {
         logOut();
         preloaderClose();
@@ -41,15 +54,24 @@ const Routes = ({
     } else {
       preloaderClose();
     }
-  }, [preloaderClose, userFromJwt, logOut, getRecipes, getUser]);
+  }, [preloaderClose, userFromJwt, logOut, getWishlist, getUser]);
 
   return preloader ? (
     <Preloader />
   ) : (
     <Switch>
       <Route exact path="/" component={HomePage} />
+      <Route path="/cart" component={CartPage} />
+      <Route path="/search" component={SearchPage} />
+      <Route path="/shop" component={Shop} />
+      <Route path="/about-us" component={Contact} />
+      <Route path="/notfound" component={NotFound} />
       <Route path="/profile" component={AuthHOC(ProfilePage)} />
+      <Route path="/products/:id" component={ItemDetailsPage} />
       <Route path="/registration" component={RegistrationPage} />
+      <Route path="/checkout" component={CheckoutPage} />
+      <Route path="/orders/:orderNo" component={OrderDetailsPage} />
+      <Route path="/admin" component={AdminHOC(AdminPage)} />
       <Redirect to="/" />
     </Switch>
   )
@@ -65,6 +87,6 @@ export default connect(mapStateToProps, {
   preloaderClose,
   userFromJwt,
   logOut,
-  getRecipes,
+  getWishlist,
   getUser,
 })(Routes);
