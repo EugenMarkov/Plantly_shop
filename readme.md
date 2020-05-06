@@ -1,4 +1,5 @@
 #  FINAL-PROJECT: PLANTLY SHOP
+http://plantlyshop.herokuapp.com/
 
   DAN-IT. Front-end course: Andrew Yakovenko, Eugen Markov, Alina Yehanian, Glib Slivko, Alexander Kaminskiy, Max Yevtushenko, Yuriy Suhak & Alexander Suhak. 
 
